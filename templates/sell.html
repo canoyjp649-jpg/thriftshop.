@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sell Item | Thrift Avenue</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="shop-topbar">
+  <div class="shop-left">
+    <img class="shop-brand-img" src="{{ url_for('static', filename='logo.png') }}" alt="logo">
+    <div class="shop-brand">
+      <div class="shop-logo-text">Thrift Avenue</div>
+      <div class="shop-tag">Post an item</div>
+    </div>
+  </div>
+
+  <div class="shop-right">
+    <a class="shop-link" href="{{ url_for('shop') }}">Shop</a>
+    <a class="shop-link danger" href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</header>
+
+<main class="shop-wrap">
+  <h1 class="shop-title">Post an Item</h1>
+  <p class="shop-subtitle">Upload clear photos (1–4). Admin will approve before it shows in shop.</p>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash" style="margin-top:14px;">{{ messages[0] }}</div>
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" class="sell-form" enctype="multipart/form-data">
+    <input class="input wide" name="title" type="text" placeholder="Item title" required>
+    <input class="input wide" name="price" type="number" step="0.01" placeholder="Price (₱)" required>
+    <input class="input wide" name="condition_text" type="text" placeholder="Condition" required>
+
+    <label style="font-size:13px;font-weight:700;">
+      Upload images (PNG/JPG/WEBP) — up to 4
+    </label>
+
+    <!-- IMPORTANT: name="images" MUST match app.py -->
+    <input class="input wide" type="file" name="images"
+           accept=".png,.jpg,.jpeg,.webp" multiple required>
+
+    <textarea class="textarea wide" name="description" placeholder="Description (optional)"></textarea>
+
+    <button class="btn-primary wide" type="submit">Submit for Admin Approval</button>
+    <a class="shop-link" href="{{ url_for('shop') }}">← Back to Shop</a>
+  </form>
+</main>
+
+</body>
+</html>

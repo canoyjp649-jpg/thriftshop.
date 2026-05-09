@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop | Thrift Avenue</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<header class="shop-topbar">
+  <div class="shop-left">
+    <img
+      class="shop-brand-img"
+      src="{{ url_for('static', filename='logo.png') }}"
+      alt="Thrift Avenue Logo"
+    >
+    <div class="shop-brand">
+      <div class="shop-logo-text">Thrift Avenue</div>
+      <div class="shop-tag">Buy & Sell Pre-loved Finds</div>
+    </div>
+  </div>
+
+  <div class="shop-right">
+    <a class="shop-link" href="{{ url_for('sell') }}">Sell</a>
+
+    {% if role == "admin" %}
+      <a class="shop-link" href="{{ url_for('admin_review') }}">Admin Review</a>
+    {% endif %}
+
+    <a class="shop-link" href="{{ url_for('terms') }}" target="_blank">Rules</a>
+
+    <a class="cart-link" href="{{ url_for('cart') }}" title="Cart">
+      <span class="cart-icon">🛒</span>
+      <span class="cart-count">{{ cart_count }}</span>
+    </a>
+
+    <a class="shop-link danger" href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="shop-wrap">
+
+  <!-- HERO -->
+  <section class="shop-hero">
+    <div>
+      <h1 class="shop-title">Welcome, {{ user }} 👋</h1>
+      <p class="shop-subtitle">
+        Only approved items appear here. Sellers submit, admin approves.
+      </p>
+    </div>
+
+    <div class="shop-actions">
+      <a class="shop-btn" href="{{ url_for('sell') }}">+ Post Item</a>
+    </div>
+  </section>
+
+  <!-- EMPTY STATE -->
+  {% if items|length == 0 %}
+    <div class="empty-state">
+      No approved items yet. Sellers can post items and admin will review them.
+    </div>
+  {% endif %}
+
+  <!-- ===== PRODUCT GRID ===== -->
+  <section class="product-grid">
+    {% for item in items %}
+      <article class="product-card">
+
+        <!-- IMAGE -->
+        <div class="product-img">
+          {% if item["image_filename"] %}
+            {% set imgs = item["image_filename"].split(",") %}
+            <img
+              class="product-photo"
+              src="{{ url_for('static', filename='uploads/' ~ imgs[0].strip()) }}"
+              alt="item image"
+            >
+          {% else %}
+            <span class="img-placeholder">No image</span>
+          {% endif %}
+        </div>
+
+        <!-- BODY -->
+        <div class="product-body">
+          <h3 class="product-name">{{ item["title"] }}</h3>
+
+          <p class="product-meta">
+            {{ item["condition_text"] }} • Seller: {{ item["seller_name"] }}
+          </p>
+
+          <div class="product-row">
+            <span class="product-price">
+              ₱{{ "%.2f"|format(item["price"]) }}
+            </span>
+            <span class="product-badge">APPROVED</span>
+          </div>
+
+          <form method="POST" action="{{ url_for('cart_add', item_id=item['id']) }}">
+            <div class="product-actions">
+              <button class="btn-primary" type="submit">
+                Add to Cart
+              </button>
+              <button class="btn-ghost" type="button" disabled>
+                View
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </article>
+    {% endfor %}
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="shop-footer">
+    <p>
+      Read
+      <a href="{{ url_for('terms') }}" target="_blank">
+        Rules & Agreement
+      </a>
+      before transacting.
+    </p>
+  </footer>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,507 @@
+/* ======================================================= BASE ======================================================== */
+*{ box-sizing: border-box; }
+
+body{
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f2ed;
+}
+
+/* ===================================================== LOGIN LAYOUT ================================================== */
+.page{
+  display: flex;
+  min-height: 100vh;
+}
+
+.brand{
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f2ed;
+  padding: 40px;
+}
+
+.brand-logo{
+  max-width: 90%;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.panel{
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f2ed;
+  position: relative;
+  padding: 40px 0;
+}
+
+.card{
+  width: 500px;
+  max-width: 85%;
+  background: #fff;
+  padding: 60px 50px;
+}
+
+.title{
+  font-size: 52px;
+  margin: 0 0 30px;
+  text-align: center;
+  font-weight: 800;
+}
+
+/*-------------------------------------------------------- Flash --------------------------------------------------------*/
+.flash{
+  background: #ffe9e9;
+  border: 1px solid #ffbcbc;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/*--------------------------------------------------------- Form --------------------------------------------------------*/
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.input{
+  width: 240px;
+  height: 38px;
+  border: none;
+  background: #e9e9e9;
+  border-radius: 6px;
+  padding: 0 12px;
+  outline: none;
+  font-size: 14px;
+}
+
+.input.wide{ width: 100%; }
+
+/*----------------------------------------------------- Buttons/links ---------------------------------------------------*/
+.login-btn{
+  margin-top: 6px;
+  background: transparent;
+  border: none;
+  color: #1a5cff;
+  text-decoration: underline;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.create-link{
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  color: #1e8e3e;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.forgot-link{
+  position: absolute;
+  right: 60px;
+  bottom: 40px;
+  color: #000;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.agreement{
+  margin-top: 10px;
+  font-size: 13px;
+  width: 240px;
+}
+
+.agreement label{
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.agreement a{
+  color: #1a5cff;
+  text-decoration: underline;
+}
+
+/* Mobile */
+@media (max-width: 900px){
+  .brand{ display:none; }
+  .panel{ width: 100%; }
+  .forgot-link{
+    right: 30px;
+    bottom: 30px;
+  }
+}
+
+/* ============================================== SHARED BOX(SHOP TOB BAR) ============================================ */
+.rules-box{
+  max-width: 880px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #ffffff;
+  font-size: 14px;
+}
+
+.shop-link{
+  color: #1a5cff;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.help-link{
+  color: #1a5cff;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.shop-link.danger{
+  color: #b00020;
+}
+
+/* ==================================================== ADMIN UI ====================================================== */
+.admin-item{ padding: 5px 0; }
+
+.admin-item-head{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.admin-title{
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.admin-meta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #666;
+  font-size: 13px;
+}
+
+.admin-price{ color: #111; font-weight: 900; }
+
+.pill{
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.status-pending{ background: #fff2cc; color: #7a5b00; }
+.status-approved{ background: #e7f6ea; color: #1d6b2a; }
+.status-rejected{ background: #ffe9e9; color: #8a1f1f; }
+
+/* ------------------------------------------ ADMIN_REVIEW PRODUCT IMAGE ----------------------------------------------*/
+.admin-thumb {
+  width: 70px !important;
+  height: 70px !important;
+  object-fit: cover !important;
+  border-radius: 8px;
+}
+
+.review-actions{
+  display: contents;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-primary{
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.btn-ghost{
+  height: 36px;
+  border: 1px solid #111;
+  border-radius: 10px;
+  background: transparent;
+  color: #111;
+  font-weight: 900;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.btn-danger{
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #b00020;
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.admin-note{
+  color: #666;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.admin-float-top {
+  position: sticky;
+  top: 15px;
+  left: 15px;
+  z-index: 9999;
+}
+
+.float-btn {
+  display: inline-block;
+  border-radius: 10px;
+}
+
+/* ========================================================= SELL FORM ================================================ */
+.sell-form{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 520px;
+}
+
+.textarea{
+  border: none;
+  background: #e9e9e9;
+  border-radius: 6px;
+  padding: 10px 12px;
+  outline: none;
+  font-size: 14px;
+  min-height: 110px;
+}
+
+.textarea.wide{ width: 100%; }
+
+.btn-primary.wide{ width: 100%; }
+/* ============================================================SHOP UI================================================= */
+.shop-topbar{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 18px;
+  background:#f7f2ed;
+}
+
+.shop-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.shop-brand-img{
+  width: 5px;
+  height:5px;
+  object-fit:contain;
+  display:block;
+}
+
+.shop-brand{
+  display:flex;
+  flex-direction:column;
+  line-height:1.1;
+}
+
+.shop-logo-text{
+  font-size:18px;
+  font-weight:800;
+  color:#111;
+}
+
+.shop-tag{
+  font-size:12px;
+  color:#666;
+  margin-top:2px;
+}
+
+.shop-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/*----------------------------------------------------- Cart icon ------------------------------------------------------*/
+.cart-link{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  text-decoration:none;
+  font-weight:900;
+  color:#111;
+}
+
+.cart-icon{ font-size:18px; }
+
+.cart-count{
+  min-width:18px;
+  height:18px;
+  border-radius: 999px;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:2px 6px;
+}
+.cart-thumb {
+  width: 10;
+  height: 10;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main wrapper */
+.shop-wrap{
+  max-width:1300px;
+  margin:10px auto;
+  padding:0 18px 40px;
+}
+
+/* Hero section */
+.shop-hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:14px;
+  padding:18px;
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:15px;
+}
+
+.shop-title{
+  margin:0;
+  font-size:28px;
+  font-weight:900;
+  color:#111;
+}
+
+.shop-subtitle{
+  margin:6px 0 0;
+  color:#666;
+}
+
+.shop-actions .shop-btn{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:12px;
+  background:#111;
+  color:#fff;
+  font-weight:900;
+  text-decoration:none;
+}
+
+/*================================================== Products grid/cards ================================================*/
+.product-grid{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:14px;
+}
+
+.product-card{
+  background:#ffffff;
+  border:1px solid #eeeeee;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.product-img{
+  background: #f3f3f3f3;
+  height:180px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.product-photo{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  display:block;
+}
+
+.img-placeholder{
+  color:#888;
+  font-weight:700;
+  font-size:13px;
+}
+
+.product-body{ padding:20px; }
+
+.product-name{
+  margin:0 0 6px;
+  font-size:16px;
+  font-weight:900;
+}
+
+.product-meta{
+  margin:0 0 10px;
+  color:#666;
+  font-size:13px;
+}
+
+.product-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.product-price{ font-weight:900; }
+
+.product-badge{
+  font-size:11px;
+  font-weight:900;
+  background:#e7f6ea;
+  color:#1d6b2a;
+  padding:5px 8px;
+  border-radius:999px;
+}
+
+.product-actions{
+  display:flex;
+  gap:10px;
+}
+
+/* Footer */
+.shop-footer{
+  margin-top:18px;
+  color:#666;
+  font-size:13px;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .product-grid{ grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 600px){
+  .product-grid{ grid-template-columns: 1fr; }
+  .shop-hero{ flex-direction:column; align-items:flex-start; }
+}
+

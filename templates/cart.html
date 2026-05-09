@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart | Thrift Avenue</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="rules-box">
+  <h2>🛒 Your Cart</h2>
+
+  {% if rows|length == 0 %}
+    <p>Your cart is empty.</p>
+    <a class="shop-link" href="{{ url_for('shop') }}">Back to Shop</a>
+  {% else %}
+
+    {% for r in rows %}
+      <div class="cart-row">
+
+        <!-- IMAGE -->
+        <div class="cart-thumb">
+          {% if r["image_filename"] %}
+            {% set imgs = r["image_filename"].split(",") %}
+            {% set cover = imgs[0].strip() %}
+            <img src="{{ url_for('static', filename='uploads/' ~ cover) }}" alt="item">
+          {% else %}
+            <span class="cart-placeholder">No image</span>
+          {% endif %}
+        </div>
+
+        <!-- INFO -->
+        <div class="cart-info">
+          <div class="cart-title">{{ r["title"] }}</div>
+          <div class="cart-meta">₱{{ "%.2f"|format(r["price"]) }} × {{ r["qty"] }}</div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="cart-actions">
+          <form method="POST" action="{{ url_for('cart_remove', cart_id=r['cart_id']) }}">
+            <button class="btn-ghost" type="submit">Remove</button>
+          </form>
+        </div>
+
+      </div>
+    {% endfor %}
+
+    <hr>
+    <p><b>Total:</b> ₱{{ "%.2f"|format(total) }}</p>
+
+    <form method="POST" action="{{ url_for('checkout') }}">
+      <button class="btn-primary" type="submit">Checkout (Demo)</button>
+    </form>
+
+    <p><a class="shop-link" href="{{ url_for('shop') }}">Back to Shop</a></p>
+
+  {% endif %}
+</div>
+
+</body>
+</html>

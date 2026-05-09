@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Thrift Avenue</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- LEFT BRAND -->
+    <section class="brand">
+      <img
+        class="brand-logo"
+        src="{{ url_for('static', filename='logo.png') }}"
+        alt="Thrift Avenue Logo"
+      >
+    </section>
+
+    <!-- RIGHT LOGIN CARD -->
+    <section class="panel">
+      <div class="card">
+        <h1 class="title">Welcome!</h1>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash">{{ messages[0] }}</div>
+          {% endif %}
+        {% endwith %}
+
+        <form class="form" method="POST">
+          <input
+            class="input"
+            name="username"
+            type="text"
+            placeholder="Username"
+            required
+          >
+
+          <input
+            class="input"
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+          >
+
+          <!-- RULES AGREEMENT -->
+          <div class="agreement">
+            <label>
+              <input type="checkbox" required>
+              <span>
+                I agree to the
+                <a href="{{ url_for('terms') }}" target="_blank">
+                  Rules & Agreement
+                </a>
+              </span>
+            </label>
+          </div>
+
+          <button class="login-btn" type="submit">
+            Log in
+          </button>
+        </form>
+
+        <a class="create-link" href="#">
+          Create Account
+        </a>
+
+        <a class="forgot-link" href="#">
+          Forgot Password
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>

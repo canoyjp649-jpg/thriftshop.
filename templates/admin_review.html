@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Review | Thrift Avenue</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"?v=5">
+</head>
+<body>
+
+  <div class="admin-float-top">
+  <a class="shop-link float-btn" href="{{ url_for('shop') }}">
+    <h5>← Back to Shop</h5>
+  </a>
+</div>
+
+<div class="rules-box">
+  <h2>Admin Panel</h2>
+  <p>Review listings. Pending items need your approval before they appear in the shop.</p>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash">{{ messages[0] }}</div>
+    {% endif %}
+  {% endwith %}
+
+  {% if items|length == 0 %}
+    <p>No items found.</p>
+  {% endif %}
+
+  {% for item in items %}
+    <div class="admin-item">
+      <div class="admin-item-head">
+        <div>
+          <h3 class="admin-title">{{ item["title"] }}</h3>
+
+          <div class="admin-meta">
+            <span class="pill status-{{ item['status'] }}">{{ item["status"]|upper }}</span>
+            <span class="admin-price">₱{{ "%.2f"|format(item["price"]) }}</span>
+            <span>Seller: <b>{{ item["seller_name"] }}</b></span>
+          </div>
+        </div>
+
+        <form method="POST"
+              action="{{ url_for('admin_delete', item_id=item['id']) }}"
+              onsubmit="return confirm('Delete this item permanently?');">
+          <button class="btn-danger" type="submit">Delete</button>
+        </form>
+      </div>
+
+      {% if item["image_filename"] %}
+        <div class="admin-image-grid">
+          {% for img in item["image_filename"].split(",") %}
+            <img class="admin-thumb"
+                 src="{{ url_for('static', filename='uploads/' ~ img) }}"
+                 alt="item photo">
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="muted">No image uploaded</p>
+      {% endif %}
+
+      <p><b>Condition:</b> {{ item["condition_text"] }}</p>
+
+      {% if item["description"] %}
+        <p><b>Description:</b> {{ item["description"] }}</p>
+      {% endif %}
+    
+      {% if item["status"] == "pending" %}
+        <div class="review-actions">
+          <form method="POST" action="{{ url_for('admin_action', item_id=item['id'], action='approve') }}">
+            <button class="btn-primary" type="submit">Approve</button>
+          </form>
+
+          <form method="POST" action="{{ url_for('admin_action', item_id=item['id'], action='reject') }}">
+            <button class="btn-ghost" type="submit">Reject</button>
+          </form>
+        </div>
+      {% else %}
+        <div class="admin-note">
+          This item is already <b>{{ item["status"] }}</b>.
+        </div>
+      {% endif %}
+    </div>
+
+    <hr>
+  {% endfor %}
+
+ <p><a class="shop-link" href="{{ url_for('shop') }}">Back to Shop</a></p>
+
+</div>
+
+</body>
+</html>
